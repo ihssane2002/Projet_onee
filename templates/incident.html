@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <title>Gestion des Incidents</title>
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <h2>Incident AI</h2>
+            <ul>
+                <li><a href="{{ url_for('dashboard') }}">🏠 Accueil</a></li>
+                <li><a href="{{ url_for('add_incident') }}" class="active">➕ Nouvel Incident</a></li>
+                <li><a href="{{ url_for('incident_history') }}">📋 Historique</a></li>
+                <li><a href="/stats">📊 Statistiques</a></li>
+                <li><a href="/profile">👤 Profil</a></li>
+                <li><a href="{{ url_for('logout') }}">🚪 Déconnexion</a></li>
+            </ul>
+        </nav>
+
+        <div class="main-content">
+            <header>
+                <h1>Gestion des Incidents</h1>
+            </header>
+
+            <section class="content">
+                <div class="incident-wrapper">
+                    <!-- Section Formulaire -->
+                    <div class="incident-form">
+                        <h2>Nouvel Incident</h2>
+                        <form action="/add-incident" method="POST" enctype="multipart/form-data">
+                            <label for="incident_id">Identifiant de l'incident :</label>
+                            <input type="text" id="incident_id" name="incident_id" value="{{ incident_id }}">
+
+                            <label for="lieu">Lieu :</label>
+                            <input type="text" id="lieu" name="lieu" value="{{ lieu }}" required>
+
+                            <label for="nom_client">Nom du Client :</label>
+                            <input type="text" id="nom_client" name="nom_client" value="{{ nom_client }}" required>
+
+                            <label for="date">Date :</label>
+                            <input type="date" id="date" name="date" value="{{ date }}" required>
+
+                            <label for="description">Description :</label>
+                            <textarea id="description" name="description" rows="4" required>{{ description }}</textarea>
+
+                            <label for="conditions">Conditions Météorologiques :</label>
+                            <input type="text" id="conditions" name="conditions" value="{{ conditions }}">
+
+                            <label for="photos">Télécharger des photos :</label>
+                            <input type="file" id="photos" name="photos" accept="image/*" multiple required>
+
+                            <div id="preview"></div>
+                            <button type="submit">Soumettre l'Incident</button>
+                        </form>
+                    </div>
+
+                    <!-- Section Rapport -->
+                    <div class="incident-report">
+                        <h2>Rapport et Recommandations</h2>
+                        {% if prediction %}
+                            <div class="prediction-section">
+                                <h3>Prédiction de l'Incident</h3>
+                                <p><strong>Type d'Incident :</strong> {{ prediction }}</p>
+
+                                <h3>Matériel Recommandé</h3>
+                                <ul>
+                                    {% for item in recommendations %}
+                                        <li>{{ item }}</li>
+                                    {% endfor %}
+                                </ul>
+
+                               <!-- Vérification que incident_id est bien passé -->
+<a href="{{ url_for('download_report', incident_id=incident_id) }}" class="download-button">
+    Télécharger le rapport PDF
+</a>
+                            </div>
+                        {% else %}
+                            <p>Aucune donnée de prédiction pour le moment.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('photos').addEventListener('change', function(event) {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = '';
+            Array.from(event.target.files).forEach(file => {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.classList.add('preview-image');
+                preview.appendChild(img);
+            });
+        });
+    </script>
+</body>
+</html>

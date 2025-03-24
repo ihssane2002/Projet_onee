@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Accueil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <h2>Incident App</h2>
+            <ul>
+                <li><a href="/dashboard" class="active">🏠 Accueil</a></li>
+                <li><a href="/add-incident">➕ Nouvel Incident</a></li>
+                <li><a href="/incident-history">📋 Historique</a></li>
+                <li><a href="/stats">📊 Statistiques</a></li>
+                <li><a href="/profile">👤 Profil</a></li>
+                <li><a href="/logout">🚪 Déconnexion</a></li>
+            </ul>
+        </nav>
+
+        <div class="main-content">
+            <header>
+                <h1>Tableau de Bord des Incidents</h1>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </header>
+
+            <section class="search-section">
+                <h2>Rechercher un Incident</h2>
+                <form method="POST">
+                    <input type="text" name="incident_id" placeholder="Entrez l'ID de l'incident..." required>
+                    <button type="submit">🔍 Rechercher</button>
+                </form>
+
+                {% if error %}
+                    <p class="error">{{ error }}</p>
+                {% endif %}
+
+                {% if pdf_path %}
+                    <h3>Rapport disponible :</h3>
+                    <a href="{{ pdf_path }}" target="_blank">📄 Voir le rapport PDF</a>
+                {% endif %}
+            </section>
+
+            <section class="incident-list">
+                <h2>Liste des Incidents</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Client</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>État</th>
+                            <th>Réparé par</th>
+                            <th>Date réparation</th>
+                            <th>Rapport</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for incident in incidents %}
+                        <tr>
+                            <td>{{ incident.id }}</td>
+                            <td>{{ incident.date.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ incident.nom_client }}</td>
+                            <td>{{ incident.incident_type }}</td>
+                            <td>{{ incident.description[:50] }}{% if incident.description|length > 50 %}...{% endif %}</td>
+                            <td class="status-{{ incident.status|lower|replace(' ', '-') }}">
+                                {{ incident.status }}
+                            </td>
+                            <td>
+                                {% if incident.repaired_by %}
+                                    {{ incident.repaired_by }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if incident.repaired_date %}
+                                    {{ incident.repaired_date.strftime('%d/%m/%Y') }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if incident.pdf_report %}
+                                    <a href="/statics/documents/{{ incident.pdf_report }}" target="_blank">📄 Voir</a>
+                                {% else %}
+                                    ❌ Aucun rapport
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if incident.status != "Réparé" %}
+                                    <form method="POST" action="{{ url_for('mark_repaired', incident_id=incident.id) }}">
+                                        <button type="submit" class="btn-repair">✅ Marquer comme réparé</button>
+                                    </form>
+                                {% else %}
+                                    ✅ Déjà réparé
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

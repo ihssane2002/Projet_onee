@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historique des Incidents</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <h2>Incident AI</h2>
+            <ul>
+                <li><a href="{{ url_for('dashboard') }}">🏠 Accueil</a></li>
+                <li><a href="{{ url_for('add_incident') }}">➕ Nouvel Incident</a></li>
+                <li><a href="{{ url_for('incident_history') }}" class="active">📋 Historique</a></li>
+                <li><a href="/stats">📊 Statistiques</a></li>
+                <li><a href="/profile">👤 Profil</a></li>
+                <li><a href="{{ url_for('logout') }}">🚪 Déconnexion</a></li>
+            </ul>
+        </nav>
+
+        <div class="main-content">
+            <header>
+                <h1>Historique des Incidents</h1>
+            </header>
+
+            <section class="content">
+                <form method="POST" action="{{ url_for('incident_history') }}">
+                    <label for="incident_id">Entrez l'ID de l'incident :</label>
+                    <input type="text" id="incident_id" name="incident_id" required>
+                    <button type="submit">Rechercher</button>
+                </form>
+
+                {% if pdf_path %}
+                    <h2>Rapport de l'Incident {{ request.form.incident_id }}</h2>
+                    <iframe src="{{ pdf_path }}" width="100%" height="600px" style="border: none;"></iframe>
+                    <a href="{{ pdf_path }}" download class="download-btn">📥 Télécharger le rapport PDF</a>
+                {% endif %}
+
+                {% if error %}
+                    <p class="error">{{ error }}</p>
+                {% endif %}
+            </section>
+        </div>
+    </div>
+</body>
+</html>

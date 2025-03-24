@@ -1,0 +1,537 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    display: flex;
+    height: 100vh;
+    transition: background 0.3s;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: #2c3e50;
+    color: #fff;
+    position: fixed;
+    height: 100%;
+    transition: width 0.3s ease;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+
+.sidebar .arrow {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #1abc9c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 20;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    margin: 10px 0;
+    background: #34495e;
+    border-radius: 5px;
+    transition: background 0.2s;
+}
+
+.sidebar ul li a i {
+    margin-right: 10px;
+}
+
+.sidebar ul li a:hover {
+    background: #1abc9c;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    margin-left: 250px;
+    padding: 20px;
+    transition: margin-left 0.3s;
+    width: 100%;
+}
+
+.main-content.shifted {
+    margin-left: 80px;
+}
+
+/* Welcome Header */
+.welcome-header {
+    background: #3498db;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Cards */
+.card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+.content {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.incident-details {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 8px;
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.download-btn:hover {
+    background: #218838;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+/* Détails des incidents */
+.incident-details {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.incident-details h3 {
+    color: #2980b9;
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.incident-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    background-color: #ecf0f1;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #34495e;
+}
+
+.incident-item:hover {
+    background-color: #dfe6e9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.incident-type {
+    font-weight: bold;
+}
+
+.incident-count {
+    color: #16a085;
+    font-weight: bold;
+}
+/* Section Profile */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Image de profil */
+.profile-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+/* Informations du profil */
+.profile-info {
+    text-align: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.profile-info h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.profile-info p {
+    font-size: 18px;
+    color: #7f8c8d;
+    margin-bottom: 15px;
+}
+
+.profile-info .bio {
+    font-size: 16px;
+    color: #34495e;
+    margin-top: 10px;
+}
+
+/* Formulaire pour le fichier */
+form {
+    margin-top: 20px;
+    text-align: center;
+}
+
+form input[type="file"] {
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    background-color: #ecf0f1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    width: 100%;
+    font-size: 16px;
+}
+
+form input[type="file"]:hover {
+    background-color: #bdc3c7;
+}
+/* Rapport d'Incident */
+.incident-report {
+    background: #f9fafb;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+    max-width: 600px; /* Limite la largeur du formulaire */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Conteneur du formulaire */
+.incident-report {
+    background: #f9fafb;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+    max-width: 500px; /* Limite la largeur du formulaire */
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Arial, sans-serif;
+}
+
+/* Formulaire d'Incident */
+.incident-form {
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Titre du formulaire */
+.incident-form h2 {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #007bff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Labels des champs */
+.incident-form label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #444;
+    display: block;
+}
+
+/* Champs de saisie */
+.incident-form input, .incident-form textarea, .incident-form select {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+.incident-form input:focus, .incident-form textarea:focus, .incident-form select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    outline: none;
+    background-color: #fff;
+}
+
+/* Champs avec des tailles ajustées */
+.incident-form input[type="text"],
+.incident-form input[type="date"],
+.incident-form select {
+    max-width: 100%;
+}
+
+.incident-form textarea {
+    resize: vertical;
+    min-height: 120px;
+    max-height: 200px;
+}
+
+/* Bouton de soumission */
+.incident-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.incident-form button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.incident-form button:active {
+    transform: translateY(0);
+}
+
+/* Styles pour les sections spécifiques */
+.download-section, .photo-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Styles pour les sections de téléchargement de photos */
+.incident-form input[type="file"] {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Image prévisualisée */
+.preview-image {
+    max-width: 180px;
+    margin-top: 15px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    transition: transform 0.3s ease;
+}
+
+.preview-image:hover {
+    transform: scale(1.05);
+}
+
+/* Champ Conditions Météorologiques */
+.conditions-weather {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Champ Date et Description sur la même ligne */
+.date-description-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.date-description-row .date-field {
+    flex: 1;
+}
+
+.date-description-row .description-field {
+    flex: 2;
+}
+
+/* Champ Date */
+.incident-form input[type="date"] {
+    width: 100%;
+    padding: 15px;
+}
+
+/* Champs de texte avec des longueurs ajustées */
+.incident-form input[type="text"],
+.incident-form select {
+    width: 100%;
+}
+
+/* Style des labels et des champs alignés */
+.incident-form .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Champ Identifiant de l'incident et Lieu */
+.row .half-width {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Séparateur entre les sections */
+.incident-form .separator {
+    border-top: 1px solid #eee;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+/* Ajout d'une animation pour le bouton */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.incident-form button:active {
+    animation: pulse 0.3s ease;
+}
+/* Bouton de Téléchargement */
+.download-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.download-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.download-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.status-non-réparé { color: #d9534f; font-weight: bold; }
+        .status-réparé { color: #5cb85c; font-weight: bold; }
+        .btn-repair {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-repair:hover { background-color: #4cae4c; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th { background-color: #f8f9fa; font-weight: bold; }
+        tr:hover { background-color: #f5f5f5; }

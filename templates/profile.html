@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Utilisateur</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <h2>Incident AI</h2>
+            <ul>
+                <li><a href="{{ url_for('dashboard') }}">🏠 Accueil</a></li>
+                <li><a href="{{ url_for('add_incident') }}">➕ Nouvel Incident</a></li>
+                <li><a href="{{ url_for('incident_history') }}">📋 Historique</a></li>
+                <li><a href="/stats">📊 Statistiques</a></li>
+                <li><a href="/profile" class="active">👤 Profil</a></li>
+                <li><a href="{{ url_for('logout') }}">🚪 Déconnexion</a></li>
+            </ul>
+        </nav>
+
+        <div class="main-content">
+            <header>
+                <h1>Mon Profil</h1>
+            </header>
+
+            <section class="content">
+                <div class="profile-container">
+                    <!-- Affichage de l'image de profil -->
+                    <div class="profile-image">
+                        {% if user.profile_image %}
+                            <img src="{{ user.profile_image }}" alt="Image de Profil">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='default-avatar.png') }}" alt="Image par défaut">
+                        {% endif %}
+                    </div>
+
+                    <!-- Formulaire pour mettre à jour l'image de profil -->
+                    <form method="POST" action="{{ url_for('profile') }}" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="profile_image">Modifier votre image de profil :</label>
+                            <input type="file" id="profile_image" name="profile_image" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn">Mettre à jour l'image</button>
+                    </form>
+
+                    <!-- Affichage des informations de profil -->
+                    <div class="profile-info">
+                        <h2>Informations Utilisateur</h2>
+                        <p><strong>Nom:</strong> {{ user.name }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Rôle:</strong> {{ user.role }}</p>
+                        <p><strong>Ville:</strong> {{ user.city or 'Non renseignée' }}</p>
+                        <p><strong>Téléphone:</strong> {{ user.phone_number or 'Non renseigné' }}</p>
+                        <p><strong>Adresse:</strong> {{ user.address or 'Non renseignée' }}</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
